@@ -1,0 +1,18 @@
+[project]
+name = "pivic-pso"
+version = "0.1.0"
+description = "Repositório dedicado à pesquisa de pivic sobre o PSO"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jax>=0.8.2",
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.0",
+]
+
+[build.system]
+requires = ["hatchling"]
+build.backend = "hatchling.build"
+
+[tool.hatch.build.target.wheel]
+packages = ["src"]
