@@ -16,3 +16,8 @@ build.backend = "hatchling.build"
 
 [tool.hatch.build.target.wheel]
 packages = ["src"]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.1.0",
+]
