@@ -8,6 +8,7 @@ dependencies = [
     "jax>=0.8.2",
     "matplotlib>=3.10.8",
     "numpy>=2.4.0",
+    "torch>=2.9.1",
 ]
 
 [build.system]
