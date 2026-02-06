@@ -76,8 +76,7 @@ class PSO:
                 )
                 particle.update_position()
 
-            snapshot = np.array([p.position.copy() for p in self.particles])
-            history.append(snapshot)
+            history.append(self.gbest_value)
 
         return (self.gbest_value, self.gbest_position, history)
 
@@ -106,6 +105,8 @@ class PSOVectorized:
         self.low = low
         self.high = high
 
+        self.v_max = 0.2 * (high - low)
+
         self.particles_positions = np.random.uniform(low, high, (n_particles, dim))
         self.particles_velocities = np.zeros((n_particles, dim))
 
@@ -120,7 +121,7 @@ class PSOVectorized:
     def optimize(
         self, function: Callable, n_iterations: int
     ) -> Tuple[float, np.ndarray, List[float]]:
-        history = []
+        self.history = {"fitness": [], "w": [], "c1": [], "c2": []}
 
         for iteration in range(n_iterations):
             self.current_fitness = np.apply_along_axis(
@@ -146,6 +147,9 @@ class PSOVectorized:
             social = self.c2 * r2 * (self.gbest_position - self.particles_positions)
 
             self.particles_velocities = inertia + cognitive + social
+            self.particles_velocities = np.clip(
+                self.particles_velocities, -self.v_max, self.v_max
+            )
 
             self.particles_positions += self.particles_velocities
 
@@ -153,9 +157,12 @@ class PSOVectorized:
                 self.particles_positions, self.low, self.high
             )
 
-            history.append(self.gbest_value)
+            self.history["fitness"].append(self.gbest_value)
+            self.history["w"].append(self.w)
+            self.history["c1"].append(self.c1)
+            self.history["c2"].append(self.c2)
 
-        return self.gbest_value, self.gbest_position, history
+        return self.gbest_value, self.gbest_position, self.history
 
     def __repr__(self):
         return f"PSOVectorized(n_particles={self.n_particles}, w={self.w}, c1={self.c1}, c2={self.c2})"
@@ -186,6 +193,8 @@ class PSOLVIW:
         self.low = low
         self.high = high
 
+        self.v_max = 0.2 * (high - low)
+
         self.particles_positions = np.random.uniform(low, high, (n_particles, dim))
         self.particles_velocities = np.zeros((n_particles, dim))
 
@@ -200,7 +209,7 @@ class PSOLVIW:
     def optimize(
         self, function: Callable, n_iterations: int
     ) -> Tuple[float, np.ndarray, List[np.ndarray]]:
-        history = []
+        self.history = {"fitness": [], "w": [], "c1": [], "c2": []}
 
         for iteration in range(n_iterations):
             self.current_fitness = np.apply_along_axis(
@@ -228,6 +237,9 @@ class PSOLVIW:
             social = self.c2 * r2 * (self.gbest_position - self.particles_positions)
 
             self.particles_velocities = inertia + cognitive + social
+            self.particles_velocities = np.clip(
+                self.particles_velocities, -self.v_max, self.v_max
+            )
 
             self.particles_positions += self.particles_velocities
 
@@ -235,9 +247,12 @@ class PSOLVIW:
                 self.particles_positions, self.low, self.high
             )
 
-            history.append(self.gbest_value)
+            self.history["fitness"].append(self.gbest_value)
+            self.history["w"].append(self.w)
+            self.history["c1"].append(self.c1)
+            self.history["c2"].append(self.c2)
 
-        return self.gbest_value, self.gbest_position, history
+        return self.gbest_value, self.gbest_position, self.history
 
     def __repr__(self):
         return f"PSOVectorized(n_particles={self.n_particles}, w={self.w}, c1={self.c1}, c2={self.c2})"
@@ -263,6 +278,8 @@ class APSO:
         self.dim = dim
         self.low = low
         self.high = high
+
+        self.v_max = 0.2 * (high - low)
 
         self.particles_positions = np.random.uniform(low, high, (n_particles, dim))
         self.particles_velocities = np.zeros((n_particles, dim))
@@ -406,7 +423,7 @@ class APSO:
     def optimize(
         self, function: Callable, n_iterations: int
     ) -> Tuple[float, np.ndarray, List[float]]:
-        history = []
+        self.history = {"fitness": [], "w": [], "c1": [], "c2": []}
 
         for iteration in range(n_iterations):
             self.current_fitness = np.apply_along_axis(
@@ -440,6 +457,9 @@ class APSO:
             social = self.c2 * r2 * (self.gbest_position - self.particles_positions)
 
             self.particles_velocities = inertia + cognitive + social
+            self.particles_velocities = np.clip(
+                self.particles_velocities, -self.v_max, self.v_max
+            )
 
             self.particles_positions += self.particles_velocities
 
@@ -447,9 +467,12 @@ class APSO:
                 self.particles_positions, self.low, self.high
             )
 
-            history.append(self.gbest_value)
+            self.history["fitness"].append(self.gbest_value)
+            self.history["w"].append(self.w)
+            self.history["c1"].append(self.c1)
+            self.history["c2"].append(self.c2)
 
-        return self.gbest_value, self.gbest_position, history
+        return self.gbest_value, self.gbest_position, self.history
 
     def __repr__(self):
         return f"APSO(n_particles={self.n_particles}, w={self.w}, c1={self.c1}, c2={self.c2})"
