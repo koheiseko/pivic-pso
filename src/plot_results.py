@@ -8,7 +8,7 @@ import pandas as pd
 class Plotter:
     def __init__(self):
         self.colors = sns.color_palette("bright", 10)
-        self.line_styles = ["-", "--", "-.", ":"]
+        self.line_styles = ["-", "--", "-.", ":", ":", "-."]
 
     def plot_convergence(
         self, df: pd.DataFrame, log_scale: bool = True, output_path: str = None

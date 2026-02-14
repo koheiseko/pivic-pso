@@ -1,22 +1,57 @@
-from src.pso import PSOVectorized, PSOLVIW, APSO
+from src.pso import PSOVectorized, PSOLVIW, APSO, PSOTVAC, APSOVI, UAPSO
 
 W = 0.9
 W_MIN = 0.4
 C1 = 2.0
 C2 = 2.0
-DIM = 2
 N_PARTICLES = 100
 
 CONFIG_HYPERPARAMETERS = {
-    "PSO": {"w": W, "c1": C1, "c2": C2, "n_particles": N_PARTICLES},
+    "PSO": {"w": 0.8, "c1": 2.0, "c2": 2.0, "n_particles": N_PARTICLES},
     "PSOLVIW": {
-        "w_max": W,
-        "w_min": W_MIN,
-        "c1": C1,
-        "c2": C2,
+        "w_max": 0.9,
+        "w_min": 0.4,
+        "c1": 2.0,
+        "c2": 2.0,
         "n_particles": N_PARTICLES,
     },
-    "APSO": {"w": W, "c1": C1, "c2": C2, "n_particles": N_PARTICLES},
+    "PSOTVAC": {
+        "w_max": 0.9,
+        "w_min": 0.4,
+        "c1_max": 2.5,
+        "c1_min": 0.5,
+        "c2_max": 2.5,
+        "c2_min": 0.5,
+        "n_particles": N_PARTICLES,
+    },
+    "APSOVI": {
+        "w_max": 0.9,
+        "w_min": 0.3,
+        "step_size": 0.1,
+        "c1": 1.496180,
+        "c2": 1.496180,
+        "n_particles": N_PARTICLES,
+    },
+    "APSO": {"w": 0.9, "c1": 2.0, "c2": 2.0, "n_particles": N_PARTICLES},
+    "UAPSO": {
+        "w_min": 0.0,
+        "w_max": 1.0,
+        "c1_min": 0.0,
+        "c1_max": 2.0,
+        "c2_min": 0.0,
+        "c2_max": 2.0,
+        "learning_rate": 0.01,
+        "threshold": 0.5,
+        "n_particles": N_PARTICLES,
+    },
 }
 
-ALGORITHMS = {"PSO": PSOVectorized, "PSOLVIW": PSOLVIW, "APSO": APSO}
+
+ALGORITHMS = {
+    "PSO": PSOVectorized,
+    "PSOLVIW": PSOLVIW,
+    "PSOTVAC": PSOTVAC,
+    "APSOVI": APSOVI,
+    "APSO": APSO,
+    "UAPSO": UAPSO,
+}
