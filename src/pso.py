@@ -486,7 +486,7 @@ class APSO:
         self.dim = dim
         self.low = low
         self.high = high
-        self.v_max = 0.2 * (high - low)  
+        self.v_max = 0.2 * (high - low)
 
         self.particles_positions = np.random.uniform(low, high, (n_particles, dim))
         self.particles_velocities = np.zeros((n_particles, dim))
@@ -530,7 +530,7 @@ class APSO:
         else:
             state_1 = 0
 
-        # Exploitation 
+        # Exploitation
         if 0 <= f <= 0.2:
             state_2 = 0
         elif 0.2 < f <= 0.3:
@@ -542,7 +542,7 @@ class APSO:
         else:
             state_2 = 0
 
-        # Convergence 
+        # Convergence
         if 0 <= f <= 0.1:
             state_3 = 1
         elif 0.1 < f <= 0.3:
@@ -550,7 +550,7 @@ class APSO:
         else:
             state_3 = 0
 
-        # Jumping Out 
+        # Jumping Out
         if 0 <= f <= 0.7:
             state_4 = 0
         elif 0.7 < f <= 0.9:

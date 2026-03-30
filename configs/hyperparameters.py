@@ -1,10 +1,6 @@
 from src.pso import PSOVectorized, PSOLVIW, APSO, PSOTVAC, APSOVI, UAPSO
 
-W = 0.9
-W_MIN = 0.4
-C1 = 2.0
-C2 = 2.0
-N_PARTICLES = 100
+N_PARTICLES = 50
 
 CONFIG_HYPERPARAMETERS = {
     "PSO": {"w": 0.8, "c1": 2.0, "c2": 2.0, "n_particles": N_PARTICLES},
